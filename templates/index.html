@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Flipkart review scrapper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h1 style="text-align: center">Search</h1>
+
+        <div class="form">
+            <form action="/" method="POST">
+                <input type="text" name="content" id="content" value="{{search_query}}">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+    </div>
+
+    {% if reviews %}
+        <a style="float: right;" href="/download/{{search_query}}">Download</a>
+        <div class="table-users">
+            <div class="header">Reviews</div>
+            <table cellspacing="0">
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Rating</th>
+                    <th>Comment Heading</th>
+                    <th width="230">Comments</th>
+                </tr>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{review['product_name']}}</td>
+                        <td>{{review['customer_name']}}</td>
+                        <td>{{review['product_rating']}}</td>
+                        <td>{{review['comment_header']}}</td>
+                        <td>{{review['comment']}} </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
