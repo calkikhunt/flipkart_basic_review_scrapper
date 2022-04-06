@@ -1,0 +1,1 @@
+web: python app.py   --master --processes 1 --threads 1

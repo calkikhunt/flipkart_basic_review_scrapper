@@ -1,3 +1,4 @@
+import os
 import requests
 import pandas as pd
 
@@ -128,7 +129,8 @@ def download_review(search_query):
     df.to_csv(buffer)
     return Response(buffer.getvalue(),
                     mimetype='text/csv',
-                    headers={'Content-Disposition': 'attachment;filename=salary.csv'})
+                    headers={'Content-Disposition': f'attachment;filename={search_query}.csv'})
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
